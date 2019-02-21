@@ -9,9 +9,8 @@ namespace TheMusicExchangeProject.Models
 {
     public class Skill
     {
-        [Key]
+        public int SkillID { get; set; }
         public string SkillName { get; set; }
-
         public string UserID { get; set; }
         public int LevelID { get; set; }
         public string Description { get; set; }
