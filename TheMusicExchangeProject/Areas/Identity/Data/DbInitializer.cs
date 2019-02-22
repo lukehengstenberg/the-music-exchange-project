@@ -23,7 +23,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if(userManager.FindByEmailAsync("bob@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "Bob1";
+                user.UserName = "bob@email.com";
                 user.Email = "bob@email.com";
                 user.Name = "Bob";
                 user.Bio = "Hi I'm Bob, I love to play Guitar and the Flute!";
@@ -36,7 +36,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("jim@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "Jim123";
+                user.UserName = "jim@email.com";
                 user.Email = "jim@email.com";
                 user.Name = "Jim";
                 user.Bio = "Hi I'm Jim, I love to play the Flute and am learning Trombone!";
@@ -49,7 +49,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("steve@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "SteveTheDude";
+                user.UserName = "steve@email.com";
                 user.Email = "steve@email.com";
                 user.Name = "Steve";
                 user.Bio = "Hi I'm Steve, I'm learning Piano.";
@@ -62,7 +62,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("thom@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "BigThom";
+                user.UserName = "thom@email.com";
                 user.Email = "thom@email.com";
                 user.Name = "Thom";
                 user.Bio = "Hi I'm Thom, I've been playing Guitar, Piano and Drums for 10 years.";
@@ -75,7 +75,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("luke@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "DreadyLuke";
+                user.UserName = "luke@email.com";
                 user.Email = "luke@email.com";
                 user.Name = "Luke";
                 user.Bio = "Hi I'm Luke, I can play Piano and Violin.";
@@ -88,7 +88,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("freddie@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "Fredster";
+                user.UserName = "freddie@email.com";
                 user.Email = "freddie@email.com";
                 user.Name = "Freddie";
                 user.Bio = "Hi I'm Freddie, I enjoy playing the Trombone!";
@@ -101,7 +101,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("georgia@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "QTerry";
+                user.UserName = "georgia@email.com";
                 user.Email = "georgia@email.com";
                 user.Name = "Georgia";
                 user.Bio = "Hi I'm Georgia, I'm learning to play the Ukulele.";
@@ -114,7 +114,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("rhodri@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "HotRhod";
+                user.UserName = "rhodri@email.com";
                 user.Email = "rhodri@email.com";
                 user.Name = "Rhodri";
                 user.Bio = "Hi I'm Rhodri, I'm an expert at playing piano, guitar and saxophone.";
@@ -127,7 +127,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("ellie@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "PrincessEllie";
+                user.UserName = "ellie@email.com";
                 user.Email = "ellie@email.com";
                 user.Name = "Ellie";
                 user.Bio = "Hi I'm Ellie, I enjoy playing Violin and Ukulele";
@@ -140,7 +140,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("jessica@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "JessIsTheBest";
+                user.UserName = "jessica@email.com";
                 user.Email = "jessica@email.com";
                 user.Name = "Jessica";
                 user.Bio = "Hi I'm Jess, I love to play Guitar!";
@@ -153,7 +153,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("liam@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "LiamTheDrummer";
+                user.UserName = "liam@email.com";
                 user.Email = "liam@email.com";
                 user.Name = "Liam";
                 user.Bio = "Hi I'm Liam, I'm learning how to play the drums.";
@@ -166,7 +166,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("greg@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "GreggyGeg";
+                user.UserName = "greg@email.com";
                 user.Email = "greg@email.com";
                 user.Name = "Greg";
                 user.Bio = "Hi I'm Greg, I've been playing Guitar for 4 years, Piano for 7 years and Violin for 5 years";
@@ -179,7 +179,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("francis@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "Francis345";
+                user.UserName = "francis@email.com";
                 user.Email = "francis@email.com";
                 user.Name = "Francis";
                 user.Bio = "Hi I'm Francis, I play Trombone and Saxophone.";
@@ -192,7 +192,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("jordan@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "CoolGuyJordan";
+                user.UserName = "jordan@email.com";
                 user.Email = "jordan@email.com";
                 user.Name = "Jordan";
                 user.Bio = "Hi I'm Jordan, I've been playing Flute and Ukulele for 2 years.";
@@ -205,7 +205,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("ben@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "FrenchBen";
+                user.UserName = "ben@email.com";
                 user.Email = "ben@email.com";
                 user.Name = "Ben";
                 user.Bio = "Hi I'm Ben, I'm learning to play the Saxophone.";
@@ -218,7 +218,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("dave@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "Davoo";
+                user.UserName = "dave@email.com";
                 user.Email = "dave@email.com";
                 user.Name = "Dave";
                 user.Bio = "Hi I'm Dave, I rock out on Flute, Drums and Trombone";
@@ -231,7 +231,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("matt@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "MixMasterMatt";
+                user.UserName = "matt@email.com";
                 user.Email = "matt@email.com";
                 user.Name = "Matt";
                 user.Bio = "Hi I'm Matt, hit me up to jam, I play Guitar and Ukulele.";
@@ -244,7 +244,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("ross@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "RossFromSwans";
+                user.UserName = "ross@email.com";
                 user.Email = "ross@email.com";
                 user.Name = "Ross";
                 user.Bio = "Hi I'm Ross, you'll catch me playing Flute, Drums or Violin.";
@@ -257,7 +257,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("toby@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "Tobyyy";
+                user.UserName = "toby@email.com";
                 user.Email = "toby@email.com";
                 user.Name = "Toby";
                 user.Bio = "Hi I'm Toby, I play Saxophone and I'm looking for someone to learn Trombone with me!";
@@ -270,7 +270,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             if (userManager.FindByEmailAsync("sarah@email.com").Result == null)
             {
                 TheMusicExchangeProjectUser user = new TheMusicExchangeProjectUser();
-                user.UserName = "MusicMaster";
+                user.UserName = "sarah@email.com";
                 user.Email = "sarah@email.com";
                 user.Name = "Sarah";
                 user.Bio = "Hi I'm Sarah, I play Drums, Saxophone, Violin and Ukulele.";
