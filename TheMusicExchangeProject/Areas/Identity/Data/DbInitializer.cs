@@ -289,7 +289,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             context.Database.EnsureCreated();
             if (context.SkillLevels.Any())
             {
-                return;
+                return; 
             }
             var skillLevels = new SkillLevel[]
             {
