@@ -4,42 +4,26 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h1>Index</h1>
 
-
-<table class="table">
-    <thead>
-        
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
+<div class="profile-row">
+    @foreach (var item in Model)
+    {
+        <div class="profile-column">
+            <div class="profile-card">
+                <h3>
                     @Html.DisplayFor(modelItem => item.Users.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Age)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Users.Bio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Users.Postcode)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Skills.SkillName)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.SkillLevel)
-                </td>
-                @*<td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>*@
-            </tr>
-        }
-    </tbody>
-</table>
+                </h3>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Age)
+                    @Html.DisplayFor(modelItem => item.Users.Postcode)
+                </p>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Users.Bio)
+                </p>
+            </div>
+        </div>
+    }
+</div>
