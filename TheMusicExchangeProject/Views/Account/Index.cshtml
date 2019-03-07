@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TheMusicExchangeProject.Areas.Identity.Data.TheMusicExchangeProjectUser>
+﻿@model IEnumerable<TheMusicExchangeProject.Models.UserSkillsViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -17,16 +17,22 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Users.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DOB)
+                    @Html.DisplayFor(modelItem => item.Age)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Bio)
+                    @Html.DisplayFor(modelItem => item.Users.Bio)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Postcode)
+                    @Html.DisplayFor(modelItem => item.Users.Postcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skills.SkillName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SkillLevel)
                 </td>
                 @*<td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
