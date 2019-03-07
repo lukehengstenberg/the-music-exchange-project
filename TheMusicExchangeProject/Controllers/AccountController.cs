@@ -16,9 +16,18 @@ namespace TheMusicExchangeProject.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var viewModel = from o in _context.Users join o2 in _context.Skills on o.Id equals o2.UserID where o.Id.Equals(o2.UserID) select new UserSkillsViewModel { Users = o, Skills = o2, SkillLevel = o2.Level.Name, Age = CalculateAge(o.DOB)};
+            ViewData["skillFilter"] = searchString;
+
+            var skills = from s in _context.Skills
+                        select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()));
+            }
+            var viewModel = from o in _context.Users join o2 in skills on o.Id equals o2.UserID where o.Id.Equals(o2.UserID) select new UserSkillsViewModel { Users = o, Skills = o2, SkillLevel = o2.Level.Name, Age = CalculateAge(o.DOB)};
             return View(viewModel);
         }
         private static int CalculateAge(DateTime dateOfBirth)
