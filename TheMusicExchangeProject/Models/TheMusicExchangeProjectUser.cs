@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -20,5 +21,6 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
         public string Postcode { get; set; }
 
         public ICollection<Skill> Skills { get; set; }
+        //public ICollection<Connection> Connections { get; set; }
     }
 }

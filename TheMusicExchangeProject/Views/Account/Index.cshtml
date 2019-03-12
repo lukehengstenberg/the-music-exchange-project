@@ -34,6 +34,9 @@
                 <p>
                     @Html.DisplayFor(modelItem => item.Users.Bio)
                 </p>
+                <p>
+                    <a asp-action="Connect" asp-route-id="@item.Users.Id">Connect</a>
+                </p>
             </div>
         </div>
     }

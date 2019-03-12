@@ -6,16 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TheMusicExchangeProject.Models;
+using Microsoft.AspNetCore.Identity;
+using TheMusicExchangeProject.Areas.Identity.Data;
 
 namespace TheMusicExchangeProject.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly TheMusicExchangeProjectContext _context;
+        private TheMusicExchangeProjectContext _context;
+        private readonly UserManager<TheMusicExchangeProjectUser> _userManager;
 
-        public AccountController(TheMusicExchangeProjectContext context)
+        public AccountController(TheMusicExchangeProjectContext context, UserManager<TheMusicExchangeProjectUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public async Task<IActionResult> Index(string searchString, string selectedLevel)
         {
@@ -63,6 +67,42 @@ namespace TheMusicExchangeProject.Controllers
                 age = age - 1;
             }
             return age;
+        }
+        public async Task<IActionResult> Connect(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var username = User.Identity.Name;
+            TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
+            TheMusicExchangeProjectUser targetUser = await _context.Users
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            var connections = _context.Connections;
+            
+            var conExist = await connections.Where(u => u.RequestFrom.Equals(targetUser) && u.RequestTo.Equals(currentUser)).FirstOrDefaultAsync();
+            if(conExist != null)
+            {
+                conExist.IsConfirmed = true;
+            }
+            else
+            {
+                var c = await connections.Where(u => u.RequestFrom.Equals(currentUser) && u.RequestTo.Equals(targetUser)).FirstOrDefaultAsync();
+                if (c == null)
+                {
+                    Connection newConnection = new Connection
+                    {
+                        RequestFrom = currentUser,
+                        RequestTo = targetUser,
+                        IsConfirmed = false
+                    };
+                    connections.Add(newConnection);
+                }
+            }
+            
+            _context.SaveChanges();
+            return View();
         }
     }
 }
