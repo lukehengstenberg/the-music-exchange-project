@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TheMusicExchangeProject.Models.UserSkillsViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Skill Name: 
+            </th>
+            <th>
+                Description:
+            </th>
+            <th>
+                Skill Level:
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skills.SkillName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skills.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SkillLevel)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Skills.SkillID">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Skills.SkillID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

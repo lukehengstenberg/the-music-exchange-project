@@ -32,20 +32,37 @@ namespace TheMusicExchangeProject.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()));
-                if(selectedLevel.Equals("1"))
+                if (!String.IsNullOrEmpty(selectedLevel))
                 {
-                    skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()) && s.Level.Name.Contains("Beginner"));
+                    if (selectedLevel.Equals("1"))
+                    {
+                        skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()) && s.Level.Name.Contains("Beginner"));
+                    }
+                    if (selectedLevel.Equals("2"))
+                    {
+                        skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()) && s.Level.Name.Contains("Intermediate"));
+                    }
+                    if (selectedLevel.Equals("3"))
+                    {
+                        skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()) && s.Level.Name.Contains("Advanced"));
+                    }
+                }
+            }
+            if(String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(selectedLevel))
+            {
+                if (selectedLevel.Equals("1"))
+                {
+                    skills = skills.Where(s => s.Level.Name.Contains("Beginner"));
                 }
                 if (selectedLevel.Equals("2"))
                 {
-                    skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()) && s.Level.Name.Contains("Intermediate"));
+                    skills = skills.Where(s => s.Level.Name.Contains("Intermediate"));
                 }
                 if (selectedLevel.Equals("3"))
                 {
-                    skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()) && s.Level.Name.Contains("Advanced"));
+                    skills = skills.Where(s => s.Level.Name.Contains("Advanced"));
                 }
             }
-
             ViewBag.levels = new SelectList(new[]
             {
                 new{ id = "", level = "All"},
