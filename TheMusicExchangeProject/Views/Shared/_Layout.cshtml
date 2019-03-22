@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using TheMusicExchangeProject.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<TheMusicExchangeProjectUser> SignInManager
+@inject UserManager<TheMusicExchangeProjectUser> UserManager
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -13,7 +19,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -31,15 +37,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Search Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Skill" asp-action="Index">Skills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Index">Messages</a>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Search Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Skill" asp-action="Index">Skills</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Index">Messages</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -55,7 +64,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            
+
         </div>
     </footer>
 

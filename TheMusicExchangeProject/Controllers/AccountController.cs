@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using TheMusicExchangeProject.Models;
 using Microsoft.AspNetCore.Identity;
 using TheMusicExchangeProject.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TheMusicExchangeProject.Controllers
 {
+    [Authorize]
+    [RequireHttps]
     public class AccountController : Controller
     {
         private TheMusicExchangeProjectContext _context;
@@ -119,7 +122,47 @@ namespace TheMusicExchangeProject.Controllers
             }
             
             _context.SaveChanges();
-            return View();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Block(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var username = User.Identity.Name;
+            TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
+            TheMusicExchangeProjectUser targetUser = await _context.Users
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            var blocks = _context.Blocks;
+            Block newBlock = new Block
+            {
+                BlockFrom = currentUser,
+                BlockTo = targetUser
+            };
+            blocks.Add(newBlock);
+
+            var connections = _context.Connections;
+
+            var conExistTo = await connections.Where(u => u.RequestFrom.Equals(currentUser) && u.RequestTo.Equals(targetUser)).FirstOrDefaultAsync();
+            if(conExistTo != null)
+            {
+                var con = await _context.Connections.FindAsync(conExistTo.ID);
+                _context.Connections.Remove(con);
+                await _context.SaveChangesAsync();
+            }
+            var conExistFrom = await connections.Where(u => u.RequestFrom.Equals(targetUser) && u.RequestTo.Equals(currentUser)).FirstOrDefaultAsync();
+            if (conExistFrom != null)
+            {
+                var con = await _context.Connections.FindAsync(conExistFrom.ID);
+                _context.Connections.Remove(con);
+                await _context.SaveChangesAsync();
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

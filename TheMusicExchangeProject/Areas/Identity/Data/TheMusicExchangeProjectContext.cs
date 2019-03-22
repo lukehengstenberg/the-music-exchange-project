@@ -19,6 +19,7 @@ namespace TheMusicExchangeProject.Models
         public DbSet<SkillLevel> SkillLevels { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Connection> Connections { get; set; }
+        public DbSet<Block> Blocks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
