@@ -98,8 +98,15 @@ namespace TheMusicExchangeProject.Controllers
                                       where o.Id.Equals(o2.RequestFrom.Id) && o2.RequestTo.Id.Equals(userId) && o2.IsConfirmed.Equals(true)
                                       select new UserConnectionsViewModel { Users = o, Connection = o2 }).ToListAsync();
             var userConnections = userConnectionsTo.Concat(userConnectionsFrom);
-            ViewBag.data = userConnections;
-            
+            ViewBag.conData = userConnections;
+
+            var userBlocks = await (from o in _context.Users
+                             join o2 in blocks on o.Id
+                             equals o2.BlockTo.Id
+                             where o2.BlockFrom.Id.Equals(userId) && o.Id.Equals(o2.BlockTo.Id)
+                             select new UserBlocksViewModel { Users = o, Block = o2 }).ToListAsync();
+            ViewBag.blkData = userBlocks;
+
             return View(viewModel.Where(u => u.Users.Id != userId && 
             !connections.Any(c => (c.RequestFrom.Equals(currentUser) && c.RequestTo.Equals(u.Users))
             || (c.RequestTo.Equals(currentUserx) && c.RequestFrom.Equals(u.Users) && c.IsConfirmed.Equals(true)))
@@ -190,6 +197,49 @@ namespace TheMusicExchangeProject.Controllers
             }
 
             _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Disconnect(string id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var connections = _context.Connections;
+            var username = User.Identity.Name;
+            TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
+
+            var conExistTo = await connections.Where(u => u.RequestFrom.Id.Equals(currentUser.Id) && u.RequestTo.Id.Equals(id)).FirstOrDefaultAsync();
+            if (conExistTo != null)
+            {
+                var con = await _context.Connections.FindAsync(conExistTo.ID);
+                _context.Connections.Remove(con);
+                await _context.SaveChangesAsync();
+            }
+            var conExistFrom = await connections.Where(u => u.RequestFrom.Id.Equals(id) && u.RequestTo.Id.Equals(currentUser.Id)).FirstOrDefaultAsync();
+            if (conExistFrom != null)
+            {
+                var con = await _context.Connections.FindAsync(conExistFrom.ID);
+                _context.Connections.Remove(con);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Unblock(string id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var blocks = _context.Blocks;
+            var username = User.Identity.Name;
+            TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
+
+            var block = await blocks.Where(u => u.BlockFrom.Id.Equals(currentUser.Id) && u.BlockTo.Id.Equals(id)).FirstOrDefaultAsync();
+            _context.Blocks.Remove(block);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }

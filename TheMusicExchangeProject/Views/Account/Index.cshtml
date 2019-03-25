@@ -40,12 +40,27 @@
         </div>
     }
 </div>
-<div>
+<div class="profile-card">
+    <h3>Your Connections:</h3>
     <ul>
-        @foreach(var connection in ViewBag.data)
+        @foreach(var connection in ViewBag.conData)
         {
-            <li>@connection.Users.Name</li>
+            <li>
+                @connection.Users.Name - @connection.Users.Email
+                <a asp-action="Disconnect" asp-route-id="@connection.Users.Id">Disconnect</a>
+            </li>
         }
-        
+    </ul>
+</div>
+<div class="profile-card">
+    <h3>Your Blocks:</h3>
+    <ul>
+        @foreach(var block in ViewBag.blkData)
+        {
+            <li>
+                @block.Users.Name
+                <a asp-action="Unblock" asp-route-id="@block.Users.Id">Unblock</a>
+            </li>
+        }
     </ul>
 </div>
