@@ -86,6 +86,20 @@ namespace TheMusicExchangeProject.Controllers
 
             var viewModel = from o in _context.Users join o2 in skills on o.Id equals o2.UserID where o.Id.Equals(o2.UserID) select new UserSkillsViewModel { Users = o, Skills = o2, SkillLevel = o2.Level.Name, Age = CalculateAge(o.DOB)};
 
+            List<UserConnectionsViewModel> userConnectionsTo = await (from o  in _context.Users
+                                  join o2 in connections on o.Id 
+                                  equals o2.RequestTo.Id
+                                  where o.Id.Equals(o2.RequestTo.Id) && o2.RequestFrom.Id.Equals(userId) && o2.IsConfirmed.Equals(true)
+                                  select new UserConnectionsViewModel { Users = o, Connection = o2}).ToListAsync();
+
+            List <UserConnectionsViewModel> userConnectionsFrom = await (from o in _context.Users
+                                      join o2 in connections on o.Id
+                                      equals o2.RequestFrom.Id
+                                      where o.Id.Equals(o2.RequestFrom.Id) && o2.RequestTo.Id.Equals(userId) && o2.IsConfirmed.Equals(true)
+                                      select new UserConnectionsViewModel { Users = o, Connection = o2 }).ToListAsync();
+            var userConnections = userConnectionsTo.Concat(userConnectionsFrom);
+            ViewBag.data = userConnections;
+            
             return View(viewModel.Where(u => u.Users.Id != userId && 
             !connections.Any(c => (c.RequestFrom.Equals(currentUser) && c.RequestTo.Equals(u.Users))
             || (c.RequestTo.Equals(currentUserx) && c.RequestFrom.Equals(u.Users) && c.IsConfirmed.Equals(true)))

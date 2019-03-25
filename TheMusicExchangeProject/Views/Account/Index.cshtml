@@ -40,3 +40,12 @@
         </div>
     }
 </div>
+<div>
+    <ul>
+        @foreach(var connection in ViewBag.data)
+        {
+            <li>@connection.Users.Name</li>
+        }
+        
+    </ul>
+</div>
