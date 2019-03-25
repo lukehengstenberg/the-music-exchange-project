@@ -12,5 +12,8 @@ namespace TheMusicExchangeProject.Models
         public Skill Skills { get; set; }
         public string SkillLevel { get; set; }
         public int Age { get; set; }
+
+        //public IList<Connection> Connections { get; set; }
+        //public IList<Block> Blocks { get; set; }
     }
 }

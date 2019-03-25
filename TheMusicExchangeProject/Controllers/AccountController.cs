@@ -75,8 +75,22 @@ namespace TheMusicExchangeProject.Controllers
             },
             "id", "level", selectedLevel);
 
+            var username = User.Identity.Name;
+            TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
+            TheMusicExchangeProjectUser currentUserx = await _userManager.FindByNameAsync(username);
+            var userId = currentUser.Id;
+
+            var connections = _context.Connections;
+           
+            var blocks = _context.Blocks;
+
             var viewModel = from o in _context.Users join o2 in skills on o.Id equals o2.UserID where o.Id.Equals(o2.UserID) select new UserSkillsViewModel { Users = o, Skills = o2, SkillLevel = o2.Level.Name, Age = CalculateAge(o.DOB)};
-            return View(viewModel);
+
+            return View(viewModel.Where(u => u.Users.Id != userId && 
+            !connections.Any(c => (c.RequestFrom.Equals(currentUser) && c.RequestTo.Equals(u.Users))
+            || (c.RequestTo.Equals(currentUserx) && c.RequestFrom.Equals(u.Users) && c.IsConfirmed.Equals(true)))
+            && !blocks.Any(b => (b.BlockFrom.Equals(currentUser) && b.BlockTo.Equals(u.Users))
+            || (b.BlockFrom.Equals(u.Users) && b.BlockTo.Equals(currentUserx)))));
         }
         private static int CalculateAge(DateTime dateOfBirth)
         {
