@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TheMusicExchangeProject.Areas.Identity.Data;
+using TheMusicExchangeProject.Models;
 
 namespace TheMusicExchangeProject.Areas.Identity.Pages.Account.Manage
 {

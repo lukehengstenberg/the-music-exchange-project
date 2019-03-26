@@ -5,9 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using TheMusicExchangeProject.Models;
 
-namespace TheMusicExchangeProject.Areas.Identity.Data
+namespace TheMusicExchangeProject.Models
 {
     public class TheMusicExchangeProjectUser : IdentityUser
     {

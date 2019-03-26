@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace TheMusicExchangeProject.Models
 {
-    public class Block
+    public class MessageGroup
     {
         public int ID { get; set; }
-        public virtual TheMusicExchangeProjectUser BlockFrom { get; set; }
-        public virtual TheMusicExchangeProjectUser BlockTo { get; set; }
+        public string GroupName { get; set; }
     }
 }

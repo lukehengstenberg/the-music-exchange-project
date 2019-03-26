@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TheMusicExchangeProject.Areas.Identity.Data;
 
 namespace TheMusicExchangeProject.Models
 {
@@ -20,6 +19,9 @@ namespace TheMusicExchangeProject.Models
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Connection> Connections { get; set; }
         public DbSet<Block> Blocks { get; set; }
+        public DbSet<MessageGroup> MessageGroups { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

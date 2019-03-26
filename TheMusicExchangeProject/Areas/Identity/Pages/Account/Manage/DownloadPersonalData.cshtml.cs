@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using TheMusicExchangeProject.Areas.Identity.Data;
+using TheMusicExchangeProject.Models;
 
 namespace TheMusicExchangeProject.Areas.Identity.Pages.Account.Manage
 {

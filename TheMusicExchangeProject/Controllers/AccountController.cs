@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TheMusicExchangeProject.Models;
 using Microsoft.AspNetCore.Identity;
-using TheMusicExchangeProject.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 
 namespace TheMusicExchangeProject.Controllers

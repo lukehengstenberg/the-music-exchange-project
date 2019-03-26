@@ -1,4 +1,5 @@
-﻿@inject SignInManager<TheMusicExchangeProjectUser> SignInManager
+﻿@using TheMusicExchangeProject.Models;
+@inject SignInManager<TheMusicExchangeProjectUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
