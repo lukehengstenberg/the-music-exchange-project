@@ -14,6 +14,10 @@ channel.bind('new_group', function (data) {
     reloadGroup();
 });
 
+$('input.chk_class').on('change', function () {
+    $('input.chk_class').not(this).prop('checked', false);
+});
+
 $("#CreateNewGroupButton").click(function () {
     let UserNames = $("input[name='UserName[]']:checked")
         .map(function () {

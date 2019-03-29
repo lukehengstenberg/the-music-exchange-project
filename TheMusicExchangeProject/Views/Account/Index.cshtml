@@ -46,7 +46,7 @@
         @foreach(var connection in ViewBag.conData)
         {
             <li>
-                @connection.Users.Name - @connection.Users.Email
+                <a asp-area="" asp-controller="Chat" asp-action="Index">@connection.Users.Name - @connection.Users.Email</a> 
                 <a asp-action="Disconnect" asp-route-id="@connection.Users.Id">Disconnect</a>
             </li>
         }
