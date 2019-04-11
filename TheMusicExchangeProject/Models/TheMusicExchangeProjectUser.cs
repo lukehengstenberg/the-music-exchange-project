@@ -18,6 +18,8 @@ namespace TheMusicExchangeProject.Models
         public string Bio { get; set; }
         [PersonalData]
         public string Postcode { get; set; }
+        [PersonalData]
+        public byte[] ProfilePicture { get; set; }
 
         public ICollection<Skill> Skills { get; set; }
         //public ICollection<Connection> Connections { get; set; }

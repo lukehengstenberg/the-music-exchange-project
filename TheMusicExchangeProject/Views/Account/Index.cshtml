@@ -14,12 +14,13 @@
         </p>
     </div>
 </form>
-
-<div class="profile-row">
+<main class="main-area">
+<div class="centered">
+    <section class="cards">
     @foreach (var item in Model)
     {
-        <div class="profile-column">
-            <div class="profile-card">
+        <article class="card">
+            <div class="card-content">
                 <h3>
                     @Html.DisplayFor(modelItem => item.Users.Name)
                     @Html.DisplayFor(modelItem => item.Skills.SkillName)
@@ -37,9 +38,11 @@
                     <a asp-action="Block" asp-route-id="@item.Users.Id">Block</a>
                 </p>
             </div>
-        </div>
+        </article>
     }
+    </section>
 </div>
+</main>
 <div class="profile-card">
     <h3>Your Connections:</h3>
     <ul>
