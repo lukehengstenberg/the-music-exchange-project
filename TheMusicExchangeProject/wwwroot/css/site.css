@@ -139,6 +139,81 @@ h3 {
     }
 }
 
+.leftcolumn {
+    float: left;
+    width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 25%;
+    background-color: #f1f1f1;
+    padding-left: 20px;
+}
+.list-card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
+}
+.connect-btn {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: 106px;
+    cursor: pointer;
+    padding: 5px 18px;
+    border: none;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    font: normal normal bold 15px/normal "Battambang", Helvetica, sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-transform: uppercase;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(0,191,9,1);
+    -webkit-transition: background 0.2s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+    -moz-transition: background 0.2s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+    -o-transition: background 0.2s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+    transition: background 0.2s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+}
+
+    .connect-btn:hover {
+        background: rgba(6,155,11,1);
+    }
+.block-btn {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: 106px;
+    cursor: pointer;
+    padding: 5px 18px;
+    border: none;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    font: normal normal bold 15px/normal "Battambang", Helvetica, sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-transform: uppercase;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgb(233, 58, 48);
+    -webkit-transition: background 0.2s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+    -moz-transition: background 0.2s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+    -o-transition: background 0.2s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+    transition: background 0.2s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+}
+
+    .block-btn:hover {
+        background: rgb(229, 17, 17);
+    }
 /* Chat window
     ------------------------------------------------ */
 .group {

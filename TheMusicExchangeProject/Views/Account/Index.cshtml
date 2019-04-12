@@ -14,7 +14,7 @@
         </p>
     </div>
 </form>
-<main class="main-area">
+<div class="leftcolumn">
 <div class="centered">
     <section class="cards">
     @foreach (var item in Model)
@@ -34,36 +34,38 @@
                     @Html.DisplayFor(modelItem => item.Users.Bio)
                 </p>
                 <p>
-                    <a asp-action="Connect" asp-route-id="@item.Users.Id">Connect</a>
-                    <a asp-action="Block" asp-route-id="@item.Users.Id">Block</a>
+                    <a asp-action="Connect" asp-route-id="@item.Users.Id" class="connect-btn">Connect</a>
+                    <a asp-action="Block" asp-route-id="@item.Users.Id" class="block-btn">Block</a>
                 </p>
             </div>
         </article>
     }
     </section>
 </div>
-</main>
-<div class="profile-card">
-    <h3>Your Connections:</h3>
-    <ul>
-        @foreach(var connection in ViewBag.conData)
-        {
-            <li>
-                <a asp-area="" asp-controller="Chat" asp-action="Index">@connection.Users.Name - @connection.Users.Email</a> 
-                <a asp-action="Disconnect" asp-route-id="@connection.Users.Id">Disconnect</a>
-            </li>
-        }
-    </ul>
 </div>
-<div class="profile-card">
-    <h3>Your Blocks:</h3>
-    <ul>
-        @foreach(var block in ViewBag.blkData)
-        {
-            <li>
-                @block.Users.Name
-                <a asp-action="Unblock" asp-route-id="@block.Users.Id">Unblock</a>
-            </li>
-        }
-    </ul>
+<div class="rightcolumn">
+    <div class="list-card">
+        <h3>Your Connections:</h3>
+        <ul>
+            @foreach (var connection in ViewBag.conData)
+            {
+                <li>
+                    <a asp-area="" asp-controller="Chat" asp-action="Index">@connection.Users.Name - @connection.Users.Email</a>
+                    <a asp-action="Disconnect" asp-route-id="@connection.Users.Id" class="block-btn">Disconnect</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="list-card">
+        <h3>Your Blocks:</h3>
+        <ul>
+            @foreach (var block in ViewBag.blkData)
+            {
+                <li>
+                    @block.Users.Name
+                    <a asp-action="Unblock" asp-route-id="@block.Users.Id" class="block-btn">Unblock</a>
+                </li>
+            }
+        </ul>
+    </div>
 </div>
