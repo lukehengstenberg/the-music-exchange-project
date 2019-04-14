@@ -2,7 +2,43 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<body>
+    <section id="banner">
+        <h1>Welcome to The Music Exchange Project!</h1>
+        <p>A platform for meeting musicians</p>
+    </section>
+    
+    <section id="one" class="wrapper">
+        <div class="inner">
+            <div class="flex flex-3">
+                <article>
+                    <header>
+                        <h3>Meet new people</h3>
+                    </header>
+                    <p>Text about meeting new people and matches</p>
+                    <footer>
+                        <a asp-area="" asp-controller="Account" asp-action="Index" class="button special">More</a>
+                    </footer>
+                </article>
+                <article>
+                    <header>
+                        <h3>Customise your skills and skill levels!</h3>
+                    </header>
+                    <p>Text about customising skills and skill levels</p>
+                    <footer>
+                        <a asp-area="" asp-controller="Skill" asp-action="Index" class="button special">More</a>
+                    </footer>
+                </article>
+                <article>
+                    <header>
+                        <h3>Chat to others</h3>
+                    </header>
+                    <p>Text about chatting to connected people</p>
+                    <footer>
+                        <a asp-area="" asp-controller="Chat" asp-action="Index" class="button special">More</a>
+                    </footer>
+                </article>
+            </div>
+        </div>
+    </section>
+</body>
