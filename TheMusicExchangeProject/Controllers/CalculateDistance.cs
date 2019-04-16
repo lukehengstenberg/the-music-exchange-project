@@ -20,27 +20,34 @@ namespace TheMusicExchangeProject.Controllers
             Kilometres
         }
 
-        public static double? BetweenTwoPostCodes(string postcodeA, string postcodeB, Units units)
+        public static double? BetweenTwoPostCodes(double latA, double longA, double latB, double longB, Units units)
         {
-            var addressA = PostCodeToLongLat(postcodeA);
-            if (!addressA.HasValue) return null;
-            var addressB = PostCodeToLongLat(postcodeB);
-            if (!addressB.HasValue) return null;
-            return addressA.Value.DistanceTo(addressB.Value, units);
+            var addressA = new Coords
+            {
+                Latitude = latA,
+                Longitude = longA
+            };
+            
+            var addressB = new Coords
+            {
+                Latitude = latB,
+                Longitude = longB
+            };
+            return addressA.DistanceTo(addressB, units);
         }
 
-        public static Coords? PostCodeToLongLat(string postcode)
-        {
-            var locationService = new GoogleLocationService();
-            var result = locationService.GetLatLongFromAddress(postcode);
-            double latitude = result.Latitude;
-            double longitude = result.Longitude;
-            return new Coords
-            {
-                Latitude = latitude,
-                Longitude = longitude
-            };
-        }
+        //public static Coords? PostCodeToLongLat(string postcode)
+        //{
+        //    var locationService = new GoogleLocationService();
+        //    var result = locationService.GetLatLongFromAddress(postcode);
+        //    double latitude = result.Latitude;
+        //    double longitude = result.Longitude;
+        //    return new Coords
+        //    {
+        //        Latitude = latitude,
+        //        Longitude = longitude
+        //    };
+        //}
 
         public static double DistanceTo(this Coords from, Coords to, Units units)
         {
@@ -64,8 +71,8 @@ namespace TheMusicExchangeProject.Controllers
             // Unit of measurement  
             var radius = 6371;
             if (units == Units.Miles) radius = 3959;
-
-            return radius * c;
+            double resultRounded = Math.Round((radius * c), 2);
+            return resultRounded;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
             SeedUsers(userManager);
             SeedSkills(userManager, context);
         }
-
+        // Add latitude and longitude calculator
         public static void SeedUsers
             (UserManager<TheMusicExchangeProjectUser> userManager)
         {
@@ -80,7 +80,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
                 user.Name = "Luke";
                 user.Bio = "Hi I'm Luke, I can play Piano and Violin.";
                 user.DOB = new DateTime(1996, 8, 16);
-                user.Postcode = "SA41GE";
+                user.Postcode = "SA43PX";
 
                 IdentityResult result = userManager.CreateAsync
                     (user, "Password123!").Result;
@@ -184,7 +184,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Data
                 user.Name = "Francis";
                 user.Bio = "Hi I'm Francis, I play Trombone and Saxophone.";
                 user.DOB = new DateTime(1992, 7, 7);
-                user.Postcode = "SA79YU";
+                user.Postcode = "SA79TR";
 
                 IdentityResult result = userManager.CreateAsync
                     (user, "Password123!").Result;

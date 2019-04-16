@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Net;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using TheMusicExchangeProject.Models;
 
 namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
@@ -41,9 +43,9 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [Display(Name = "Profile Picture")]
-            public byte[] ProfilePicture { get; set; }
+            //[Required]
+            //[Display(Name = "Profile Picture")]
+            //public byte[] ProfilePicture { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
@@ -92,6 +94,16 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+                string pCode = Input.Postcode;
+                double latitude;
+                double longitude;
+                using(WebClient wc = new WebClient())
+                {
+                    var json = wc.DownloadString("http://api.postcodes.io/postcodes/" + pCode);
+                    dynamic data = JObject.Parse(json);
+                    latitude = data.result.latitude;
+                    longitude = data.result.longitude;
+                }
                 var user = new TheMusicExchangeProjectUser {
                     UserName = Input.Email,
                     Email = Input.Email,
@@ -99,7 +111,9 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
                     DOB = Input.DOB,
                     Bio = Input.Bio,
                     Postcode = Input.Postcode,
-                    ProfilePicture = Input.ProfilePicture
+                    Latitude = latitude,
+                    Longitude = longitude,
+                    //ProfilePicture = Input.ProfilePicture
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

@@ -27,8 +27,8 @@
                     @Html.DisplayFor(modelItem => item.SkillLevel)
                 </h3>
                 <p>
-                    @Html.DisplayFor(modelItem => item.Age)
-                    @Html.DisplayFor(modelItem => item.Distance)
+                    @Html.DisplayFor(modelItem => item.Age) Years old <br />   
+                    @Html.DisplayFor(modelItem => item.Distance) Miles away
                 </p>
                 <p>
                     @Html.DisplayFor(modelItem => item.Users.Bio)
@@ -44,6 +44,19 @@
 </div>
 </div>
 <div class="rightcolumn">
+    <div class="list-card">
+        <h3>Requests:</h3>
+        <ul>
+            @foreach (var connection in ViewBag.reqData)
+            {
+                <li>
+                    @connection.Users.Name - @connection.Users.Email
+                    <a asp-action="Connect" asp-route-id="@connection.Users.Id" class="connect-btn">Accept</a>
+                    <a asp-action="Disconnect" asp-route-id="@connection.Users.Id" class="block-btn">Decline</a>
+                </li>
+            }
+        </ul>
+    </div>
     <div class="list-card">
         <h3>Your Connections:</h3>
         <ul>

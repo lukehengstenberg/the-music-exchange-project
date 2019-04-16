@@ -86,7 +86,9 @@ namespace TheMusicExchangeProject.Controllers
             var viewModel = from o in _context.Users join o2 in skills on o.Id equals o2.UserID
                             where o.Id.Equals(o2.UserID) select new UserSkillsViewModel {
                                 Users = o, Skills = o2, SkillLevel = o2.Level.Name, Age = CalculateAge(o.DOB),
-                                Distance = CalculateDistance.BetweenTwoPostCodes(currentUser.Postcode, o.Postcode, CalculateDistance.Units.Miles)};
+                                Distance = CalculateDistance.BetweenTwoPostCodes(
+                                    currentUser.Latitude, currentUser.Longitude, 
+                                    o.Latitude, o.Longitude, CalculateDistance.Units.Miles)};
 
             List<UserConnectionsViewModel> userConnectionsTo = await (from o  in _context.Users
                                   join o2 in connections on o.Id 
@@ -108,6 +110,14 @@ namespace TheMusicExchangeProject.Controllers
                              where o2.BlockFrom.Id.Equals(userId) && o.Id.Equals(o2.BlockTo.Id)
                              select new UserBlocksViewModel { Users = o, Block = o2 }).ToListAsync();
             ViewBag.blkData = userBlocks;
+
+            IEnumerable<UserConnectionsViewModel> userRequests = await (from o in _context.Users
+                                                                 join o2 in connections on o.Id
+                                                                 equals o2.RequestFrom.Id
+                                                                 where o.Id.Equals(o2.RequestFrom.Id) && o2.RequestTo.Id.Equals(userId) && o2.IsConfirmed.Equals(false)
+                                                                 && !blocks.Any(b => (b.BlockFrom.Equals(currentUser) && b.BlockTo.Equals(o2.RequestFrom)))
+                                                                 select new UserConnectionsViewModel { Users = o, Connection = o2 }).ToListAsync();
+            ViewBag.reqData = userRequests;
 
             return View(viewModel.Where(u => u.Users.Id != userId && 
             !connections.Any(c => (c.RequestFrom.Equals(currentUser) && c.RequestTo.Equals(u.Users))
