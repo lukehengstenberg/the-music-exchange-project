@@ -110,3 +110,16 @@ function reloadGroup() {
         $("#groups").html(groups);
     });
 }
+
+function showhideRequests() {
+    var div = document.getElementById("requests");
+    div.classList.toggle('hidden');
+}
+function showhideConnections() {
+    var div = document.getElementById("connections");
+    div.classList.toggle('hidden');
+}
+function showhideBlocks() {
+    var div = document.getElementById("blocks");
+    div.classList.toggle('hidden');
+}
