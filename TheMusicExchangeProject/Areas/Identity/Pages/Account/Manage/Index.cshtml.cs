@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json.Linq;
 using TheMusicExchangeProject.Models;
 
 namespace TheMusicExchangeProject.Areas.Identity.Pages.Account.Manage
@@ -67,6 +71,10 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Profile Picture")]
+            public IFormFile ProfilePicture { get; set; }
+
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -129,6 +137,27 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account.Manage
             if (Input.Postcode != user.Postcode)
             {
                 user.Postcode = Input.Postcode;
+                string pCode = Input.Postcode;
+                double latitude;
+                double longitude;
+                using (WebClient wc = new WebClient())
+                {
+                    var json = wc.DownloadString("http://api.postcodes.io/postcodes/" + pCode);
+                    dynamic data = JObject.Parse(json);
+                    latitude = data.result.latitude;
+                    longitude = data.result.longitude;
+                }
+                user.Latitude = latitude;
+                user.Longitude = longitude;
+            }
+
+            if(Input.ProfilePicture != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await Input.ProfilePicture.CopyToAsync(memoryStream);
+                    user.ProfilePicture = memoryStream.ToArray();
+                }
             }
 
             var email = await _userManager.GetEmailAsync(user);

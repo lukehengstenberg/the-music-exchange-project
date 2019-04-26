@@ -130,7 +130,7 @@ namespace TheMusicExchangeProject.Controllers
             !connections.Any(c => (c.RequestFrom.Equals(currentUser) && c.RequestTo.Equals(u.Users))
             || (c.RequestTo.Equals(currentUserx) && c.RequestFrom.Equals(u.Users) && c.IsConfirmed.Equals(true)))
             && !blocks.Any(b => (b.BlockFrom.Equals(currentUser) && b.BlockTo.Equals(u.Users))
-            || (b.BlockFrom.Equals(u.Users) && b.BlockTo.Equals(currentUserx)))));
+            || (b.BlockFrom.Equals(u.Users) && b.BlockTo.Equals(currentUserx)))).OrderBy(u => Guid.NewGuid()));
         }
         private static int CalculateAge(DateTime dateOfBirth)
         {
