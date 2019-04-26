@@ -6,14 +6,9 @@ for details on configuring this project to bundle and minify static web assets. 
 .content-body {
     font-family: 'Fira Sans', sans-serif;
     background: #C0D9E1;
-    line-height: 1.4;
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-bottom: 1em;
     border: 1px solid #485277;
     border-radius: 3px;
 }
-
 /* Navigation bar styles
 -------------------------------------------------- */
 a.navbar-brand {
@@ -92,9 +87,38 @@ body {
 
 /* Registration and Login
     ------------------------------------------------ */
-
+.login-body {
+    padding: 2em;
+    text-align: center;
+    background-image: linear-gradient(to bottom, #485277, #576b8c, #6a84a0, #809db3, #9ab7c6, #9ab7c6, #9ab7c6, #9ab7c6, #809db3, #6a84a0, #576b8c, #485277);
+}
+.login-inner {
+    background:#C0D9E1;
+    width: 60%;
+    height: auto;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 1em;
+}
+.login-title {
+    font-family: 'Lobster', cursive;
+    color: #F18805;
+    font-size: 2.5em;
+}
+.login-subtitle {
+    font-family: 'Lobster', cursive;
+    color: #F18805;
+    font-size: 1.5em;
+}
+.login-labels {
+    font-family: 'Fira Sans', sans-serif;
+    color: #F18805;
+    font-size: 1.25em;
+}
+/* remember to add a boxfade to this*/
 /*Welcome Screen
     ------------------------------------------------ */
+
 #zero {
     padding: 1.5em;
     text-align: center;
