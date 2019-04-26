@@ -25,6 +25,5 @@ namespace TheMusicExchangeProject.Models
         [PersonalData]
         public byte[] ProfilePicture { get; set; }
         public ICollection<Skill> Skills { get; set; }
-        //public ICollection<Connection> Connections { get; set; }
     }
 }

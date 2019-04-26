@@ -30,6 +30,7 @@
     {
         <article class="card">
             <div class="card-content">
+                <img src="@Url.Action("GenerateProfilePictures", "Account", new {id = item.Users.Id})" height="100" width="100" />
                 <h3 class="card-title">
                     @Html.DisplayFor(modelItem => item.Users.Name)
                     @Html.DisplayFor(modelItem => item.Skills.SkillName)

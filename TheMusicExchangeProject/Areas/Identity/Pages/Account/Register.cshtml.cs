@@ -6,6 +6,7 @@ using System.Net;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -43,9 +44,9 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            //[Required]
-            //[Display(Name = "Profile Picture")]
-            //public byte[] ProfilePicture { get; set; }
+            [Required]
+            [Display(Name = "Profile Picture")]
+            public IFormFile ProfilePicture { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
@@ -112,9 +113,13 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
                     Bio = Input.Bio,
                     Postcode = Input.Postcode,
                     Latitude = latitude,
-                    Longitude = longitude,
-                    //ProfilePicture = Input.ProfilePicture
+                    Longitude = longitude
                 };
+                using(var memoryStream = new MemoryStream())
+                {
+                    await Input.ProfilePicture.CopyToAsync(memoryStream);
+                    user.ProfilePicture = memoryStream.ToArray();
+                }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

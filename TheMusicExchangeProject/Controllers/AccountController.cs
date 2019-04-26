@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using TheMusicExchangeProject.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting;
 
 namespace TheMusicExchangeProject.Controllers
 {
@@ -17,11 +21,14 @@ namespace TheMusicExchangeProject.Controllers
     {
         private TheMusicExchangeProjectContext _context;
         private readonly UserManager<TheMusicExchangeProjectUser> _userManager;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AccountController(TheMusicExchangeProjectContext context, UserManager<TheMusicExchangeProjectUser> userManager)
+        public AccountController(TheMusicExchangeProjectContext context, UserManager<TheMusicExchangeProjectUser> userManager, 
+            IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _hostingEnvironment = hostingEnvironment;
         }
         public async Task<IActionResult> Index(string searchString, string selectedLevel)
         {
@@ -253,6 +260,31 @@ namespace TheMusicExchangeProject.Controllers
             _context.Blocks.Remove(block);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public FileContentResult ProfilePictures()
+        {
+            var username = User.Identity.Name;
+            var currentUser = _context.Users.Where(u => u.UserName == username).FirstOrDefault();
+            if (currentUser.ProfilePicture == null)
+            {
+                var path = Path.Combine(_hostingEnvironment.WebRootPath, "images", $"blank_profile.png");
+                byte[] imageData = System.IO.File.ReadAllBytes(path);
+                return new FileContentResult(imageData, "image/jpeg");
+            }
+            return new FileContentResult(currentUser.ProfilePicture, "image/jpeg");
+        }
+
+        public FileContentResult GenerateProfilePictures(string id)
+        {
+            var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+            if (user.ProfilePicture == null)
+            {
+                var path = Path.Combine(_hostingEnvironment.WebRootPath, "images", $"blank_profile.png");
+                byte[] imageData = System.IO.File.ReadAllBytes(path);
+                return new FileContentResult(imageData, "image/jpeg");
+            }
+            return new FileContentResult(user.ProfilePicture, "image/jpeg");
         }
     }
 }
