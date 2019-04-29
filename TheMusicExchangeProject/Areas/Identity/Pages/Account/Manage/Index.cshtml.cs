@@ -68,10 +68,6 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account.Manage
             [EmailAddress]
             public string Email { get; set; }
 
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
-
             [Display(Name = "Profile Picture")]
             public IFormFile ProfilePicture { get; set; }
 
@@ -87,7 +83,6 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account.Manage
 
             var userName = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             Username = userName;
 
@@ -97,8 +92,7 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account.Manage
                 DOB = user.DOB,
                 Bio = user.Bio,
                 Postcode = user.Postcode,
-                Email = email,
-                PhoneNumber = phoneNumber
+                Email = email
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -168,17 +162,6 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account.Manage
                 {
                     var userId = await _userManager.GetUserIdAsync(user);
                     throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
-                }
-            }
-
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
 

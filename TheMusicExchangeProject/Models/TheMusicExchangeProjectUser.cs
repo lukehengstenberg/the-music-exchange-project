@@ -8,6 +8,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TheMusicExchangeProject.Models
 {
+    /**
+     * 
+     * This Model structures the Users table in the DB.
+     * 
+     * */
     public class TheMusicExchangeProjectUser : IdentityUser
     {
         [PersonalData]

@@ -36,19 +36,6 @@ namespace TheMusicExchangeProject.Controllers
             return addressA.DistanceTo(addressB, units);
         }
 
-        //public static Coords? PostCodeToLongLat(string postcode)
-        //{
-        //    var locationService = new GoogleLocationService();
-        //    var result = locationService.GetLatLongFromAddress(postcode);
-        //    double latitude = result.Latitude;
-        //    double longitude = result.Longitude;
-        //    return new Coords
-        //    {
-        //        Latitude = latitude,
-        //        Longitude = longitude
-        //    };
-        //}
-
         public static double DistanceTo(this Coords from, Coords to, Units units)
         {
             // Haversine Formula...  

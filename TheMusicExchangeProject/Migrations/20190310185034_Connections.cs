@@ -5,6 +5,11 @@ namespace TheMusicExchangeProject.Migrations
 {
     public partial class Connections : Migration
     {
+        /**
+         * 
+         * Applies the Migration.
+         * 
+         **/
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -33,7 +38,11 @@ namespace TheMusicExchangeProject.Migrations
                 table: "Connections",
                 column: "RequestToId");
         }
-
+        /**
+         * 
+         * Removes the Migration.
+         * 
+         */
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

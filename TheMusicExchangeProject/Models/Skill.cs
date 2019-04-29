@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace TheMusicExchangeProject.Models
 {
+    /**
+     * 
+     * This Model structures the Skills table in the DB.
+     * 
+     * */
     public class Skill
     {
         public int SkillID { get; set; }

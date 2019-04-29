@@ -5,6 +5,11 @@ namespace TheMusicExchangeProject.Migrations
 {
     public partial class AddSkills : Migration
     {
+        /**
+         * 
+         * Applies the Migration.
+         * 
+         **/
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -57,6 +62,11 @@ namespace TheMusicExchangeProject.Migrations
                 column: "UserID");
         }
 
+        /**
+         * 
+         * Removes the Migration.
+         * 
+         */
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

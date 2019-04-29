@@ -41,7 +41,11 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
-
+        /**
+         * 
+         * Registration Model defining the attributes behind the Register View data.
+         * 
+         * */
         public class InputModel
         {
             [Required]
@@ -89,7 +93,11 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
         }
-
+        /**
+         *
+         * Post Method creating a new User Account on form submission.
+         * 
+         **/
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -98,7 +106,8 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
                 string pCode = Input.Postcode;
                 double latitude;
                 double longitude;
-                using(WebClient wc = new WebClient())
+                // Postcode lookup to get Latitude and Longitude coordinates.
+                using (WebClient wc = new WebClient())
                 {
                     var json = wc.DownloadString("http://api.postcodes.io/postcodes/" + pCode);
                     dynamic data = JObject.Parse(json);
@@ -115,7 +124,8 @@ namespace TheMusicExchangeProject.Areas.Identity.Pages.Account
                     Latitude = latitude,
                     Longitude = longitude
                 };
-                using(var memoryStream = new MemoryStream())
+                // Conversion of image file to Byte array before storage.
+                using (var memoryStream = new MemoryStream())
                 {
                     await Input.ProfilePicture.CopyToAsync(memoryStream);
                     user.ProfilePicture = memoryStream.ToArray();

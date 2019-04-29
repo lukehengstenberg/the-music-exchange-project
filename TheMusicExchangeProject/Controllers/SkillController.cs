@@ -24,7 +24,12 @@ namespace TheMusicExchangeProject.Controllers
             _context = context;
             _userManager = userManager;
         }
-
+        /**
+         * 
+         * Method called when the page is loaded.
+         * Returns a ViewModel holding the current users skills and skill levels.
+         * 
+         */
         public async Task<IActionResult> Index()
         {
             var skills = from s in _context.Skills
@@ -35,10 +40,18 @@ namespace TheMusicExchangeProject.Controllers
                 TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
                 skills = skills.Where(s => s.UserID.Contains(currentUser.Id));
             }
-            var viewModel = from o in _context.Users join o2 in skills on o.Id equals o2.UserID where o.Id.Equals(o2.UserID) select new UserSkillsViewModel { Users = o, Skills = o2, SkillLevel = o2.Level.Name};
+            var viewModel = from o in _context.Users join o2 in skills 
+                            on o.Id equals o2.UserID
+                            where o.Id.Equals(o2.UserID)
+                            select new UserSkillsViewModel { Users = o, Skills = o2, SkillLevel = o2.Level.Name};
             return View(viewModel);
         }
-
+        /**
+         * 
+         * GET method for skill creation.
+         * Returns the Create.cshtml view.
+         * 
+         */
         [HttpGet]
         public IActionResult Create()
         {
@@ -52,7 +65,13 @@ namespace TheMusicExchangeProject.Controllers
 
             return View();
         }
-
+        /**
+         * 
+         * POST method for skill creation.
+         * Binds form input to the Skill model
+         * Redirects to Index if successful, returns to view if not. 
+         * 
+         */
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,SkillName,UserID,Description")] Skill skill, string selectedLevel)
@@ -61,14 +80,15 @@ namespace TheMusicExchangeProject.Controllers
             
             if (ModelState.IsValid)
             {
-                skill.SkillName = skill.SkillName;
                 var username = User.Identity.Name;
                 TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
+                skill.User = currentUser;
                 skill.UserID = currentUser.Id;
+
                 skill.LevelID = int.Parse(selectedLevel);
+                skill.SkillName = skill.SkillName;
                 skill.Description = skill.Description;
 
-                skill.User = currentUser;
                 var levels = from l in _context.SkillLevels
                              select l;
 
@@ -80,7 +100,12 @@ namespace TheMusicExchangeProject.Controllers
             }
             return View(skill);
         }
-
+        /**
+         * 
+         * GET method for skill deletion.
+         * Returns view with skill model of deletion target.
+         * 
+         */
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -97,7 +122,12 @@ namespace TheMusicExchangeProject.Controllers
 
             return View(skill);
         }
-
+        /**
+         * 
+         * POST method for skill deletion.
+         * Removes skill from the database and redirects to Index view. 
+         * 
+         */
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
