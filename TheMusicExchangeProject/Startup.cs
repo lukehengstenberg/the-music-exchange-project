@@ -51,6 +51,8 @@ namespace TheMusicExchangeProject
                 app.UseHsts();
             }
 
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("OTk2NjFAMzEzNzJlMzEyZTMwRytOQ1dyOHpVL0tEREZESkdVMzdpNEYwbzdjVzRzTUZ4OTA2Nk91RDZMcz0 =");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();

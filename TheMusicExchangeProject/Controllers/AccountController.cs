@@ -31,10 +31,11 @@ namespace TheMusicExchangeProject.Controllers
             _userManager = userManager;
             _hostingEnvironment = hostingEnvironment;
         }
-        public async Task<IActionResult> Index(string searchString, string selectedLevel)
+        public async Task<IActionResult> Index(string searchString, string selectedLevel, double selectedDistance)
         {
             ViewData["skillFilter"] = searchString;
             ViewData["levelFilter"] = selectedLevel;
+            ViewData["distanceFilter"] = selectedDistance;
 
             var skills = from s in _context.Skills
                         select s;
@@ -111,6 +112,8 @@ namespace TheMusicExchangeProject.Controllers
                                     currentUser.Latitude, currentUser.Longitude, 
                                     o.Latitude, o.Longitude, CalculateDistance.Units.Miles)};
 
+            ViewBag.max = viewModel.Max(x => x.Distance);
+
             List<UserConnectionsViewModel> userConnectionsTo = await (from o  in _context.Users
                                   join o2 in connections on o.Id 
                                   equals o2.RequestTo.Id
@@ -139,6 +142,11 @@ namespace TheMusicExchangeProject.Controllers
                                                                  && !blocks.Any(b => (b.BlockFrom.Equals(currentUser) && b.BlockTo.Equals(o2.RequestFrom)))
                                                                  select new UserConnectionsViewModel { Users = o, Connection = o2 }).ToListAsync();
             ViewBag.reqData = userRequests;
+
+            if(selectedDistance > 0)
+            {
+                viewModel = viewModel.Where(d => d.Distance <= selectedDistance);
+            }
 
             return View(viewModel.Where(u => u.Users.Id != userId && 
             !connections.Any(c => (c.RequestFrom.Equals(currentUser) && c.RequestTo.Equals(u.Users))

@@ -117,6 +117,7 @@ function reloadGroup() {
         data.forEach(function (group) {
             groups += `<div class="group" data-group_id="`
                 + group.groupId + `">` + group.groupName +
+                `<img src="` + `/Chat/ChatProfilePictures?GroupId=` + group.groupId + `" class="profile-pic" />` +
                 `<form asp-controller="Chat" asp-action="Delete" asp-route-id="` + group.groupId + `" 
                     data-ajax="true" data-ajax-success="deleteGroup(this)">
                     <button type="submit" class="btn btn-secondary">Delete</button>

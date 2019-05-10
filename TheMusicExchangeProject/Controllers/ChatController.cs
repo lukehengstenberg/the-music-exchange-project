@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PusherServer;
@@ -15,13 +17,16 @@ namespace TheMusicExchangeProject.Controllers
     {
         private readonly UserManager<TheMusicExchangeProjectUser> _userManager;
         private readonly TheMusicExchangeProjectContext _context;
+        private readonly IHostingEnvironment _hostingEnvironment;
         public ChatController(
             UserManager<TheMusicExchangeProjectUser> userManager,
-            TheMusicExchangeProjectContext context
+            TheMusicExchangeProjectContext context,
+            IHostingEnvironment hostingEnvironment
             )
         {
             _userManager = userManager;
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
         public async Task<IActionResult> Index()
         {
@@ -82,6 +87,28 @@ namespace TheMusicExchangeProject.Controllers
                 new { id });
 
             return NoContent();
+        }
+        /**
+         * 
+         * Method for converting the ProfilePicture byte array to an image.
+         * Takes the UserName as a parameter and returns an image file.
+         *
+         */
+        public FileContentResult ChatProfilePictures(int groupId)
+        {
+            var group = _context.UserGroups
+                .Where(u => u.GroupId == groupId && u.UserName != User.Identity.Name)
+                .FirstOrDefault();
+            var user = _context.Users
+                .Where(u => u.UserName == group.UserName)
+                .FirstOrDefault();
+            if (user.ProfilePicture == null)
+            {
+                var path = Path.Combine(_hostingEnvironment.WebRootPath, "images", $"blank_profile.png");
+                byte[] imageData = System.IO.File.ReadAllBytes(path);
+                return new FileContentResult(imageData, "image/jpeg");
+            }
+            return new FileContentResult(user.ProfilePicture, "image/jpeg");
         }
     }
 }

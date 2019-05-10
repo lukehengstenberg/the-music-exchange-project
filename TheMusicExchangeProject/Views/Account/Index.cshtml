@@ -7,18 +7,34 @@
 
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-8" style="margin-top:0.5em; display:inline-block;">
-                    Find someone that plays: <input type="text" name="SearchString" />
-
-                    At skill level: <select name="selectedLevel" asp-items="ViewBag.levels" value="@ViewData" ["levelFilter"]"></select>
+        <div class="container-fluid searching">
+            <div class="row" style="display:inline-flex;">
+                <div class="col-sm-6" style="margin-top:0.5em;">
+                    <div class="slider-labeltext">
+                        Find someone that plays: 
+                    </div>
+                    <input type="text" name="SearchString" />
                 </div>
-                <div class="col-sm-4" style="margin-top:0.25em;">   
+                <div class="col-sm-6" style="margin-top:0.5em;  margin-left:1em; margin-bottom:0.5em;">
+                    <div class="slider-labeltext">
+                        At skill level:
+                    </div>
+                    <select name="selectedLevel" asp-items="ViewBag.levels" value="@ViewData" ["levelFilter"]"></select>
+                </div>
+            </div>
+            <div class="row" style="padding:1em;">
+                <div class="slider-labeltext col-sm-12">Set Distance in Miles:
+
+                <ejs-slider name="selectedDistance" id="default" value="@ViewData" ["distanceFilter"]" min="0" max="ViewBag.max" showButtons="true" step="1" type="MinRange">
+                    <e-slider-tooltipdata isVisible="true"></e-slider-tooltipdata>
+                </ejs-slider>
+                </div>
+            </div>
+            <div class="row" style="padding:1em;">
+                <div class="col-sm-12" style="margin-top:0.25em;">   
                     <input type="submit" value="Search" class="btn btn-default" />
                     <a asp-action="Index">Clear Search</a>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -29,14 +45,15 @@
     @foreach (var item in Model)
     {
         <article class="card">
-            <div class="card-content">
+            <div class="card-content h-100">
                 <div class="card-frame">
-                    <div class="card-pic">
+                    <div>
                         <img src="@Url.Action("GenerateProfilePictures", "Account", new {id = item.Users.Id})" class="card-pic" />
                     </div>
                 </div>
                 <h3 class="card-title">
                     @Html.DisplayFor(modelItem => item.Users.Name)
+                    <br />
                     @Html.DisplayFor(modelItem => item.Skills.SkillName)
                     @Html.DisplayFor(modelItem => item.SkillLevel)
                 </h3>

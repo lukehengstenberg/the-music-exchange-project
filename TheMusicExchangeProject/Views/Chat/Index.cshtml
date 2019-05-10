@@ -24,12 +24,13 @@
                         <input type="hidden" value="" id="currentGroup">
                         @foreach (var group in (dynamic)ViewData["UserGroups"])
                         {
-                            <div class="group" data-group_id="@group.GroupId">
+                        <div class="group" data-group_id="@group.GroupId">
                             @group.GroupName
-                                <form asp-controller="Chat" asp-action="Delete" asp-route-id="@group.GroupId" data-ajax="true" data-ajax-success="deleteGroup(this)">
-                                    <button type="submit" class="btn btn-secondary">Delete</button>
-                                </form>
-                            </div>
+                            <img src="@Url.Action("ChatProfilePictures", "Chat", new {groupId = group.GroupId})" class="profile-pic" />
+                            <form asp-controller="Chat" asp-action="Delete" asp-route-id="@group.GroupId" data-ajax="true" data-ajax-success="deleteGroup(this)">
+                                <button type="submit" class="btn btn-secondary">Delete</button>
+                            </form>
+                        </div>
                         }
                     </div>
                     <div class="text-center">
