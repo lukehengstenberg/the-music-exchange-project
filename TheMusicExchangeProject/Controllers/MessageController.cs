@@ -27,7 +27,7 @@ namespace TheMusicExchangeProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] MessageViewModel message)
         {
-            Message new_message = new Message { AddedBy = _userManager.GetUserName(User), message = message.message, GroupId = message.GroupId };
+            Message new_message = new Message { AddedBy = _userManager.GetUserName(User), message = message.message, GroupId = message.GroupId, TimeSent = DateTime.Now };
 
             _context.Messages.Add(new_message);
             _context.SaveChanges();

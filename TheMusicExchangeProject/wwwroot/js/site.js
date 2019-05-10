@@ -42,6 +42,8 @@ $("#CreateNewGroupButton").click(function () {
 
 });
 
+
+
 // When a user clicks on a group, Load messages for that particular group.
     $("#groups").on("click", ".group", function(){
         let group_id = $(this).attr("data-group_id");
@@ -57,8 +59,11 @@ $("#CreateNewGroupButton").click(function () {
             let message = "";
 
             data.forEach(function(data){
-                    let position = ( data.addedBy == $("#UserName").val() ) ? " float-right" : "";
-                    message += `<div class="row chat_message` + position +`"><b>`+ data.addedBy +`: </b>`+ data.message +` </div>`;
+                var event = new Date(data.timeSent);
+                let position = (data.addedBy == $("#UserName").val()) ? " float-right" : "";
+                message += `<div class="row chat_message` + position + `">
+                                <b>` + event.toLocaleTimeString('en-US') + data.addedBy + `: </b>` + data.message + ` 
+                            </div>`;
             });
 
             $(".chat_body").html(message);
@@ -86,8 +91,9 @@ $("#SendMessage").click(function () {
             socketId: pusher.connection.socket_id
         }),
         success: (data) => {
+            var event = new Date(data.data.timeSent);
             $(".chat_body").append(`<div class="row chat_message float-right"><b>`
-                + data.data.addedBy + `: </b>` + $("#Message").val() + `</div>`
+                + event.toLocaleTimeString('en-US') + data.data.addedBy + `: </b>` + $("#Message").val() + `</div>`
             );
 
             $("#Message").val('');

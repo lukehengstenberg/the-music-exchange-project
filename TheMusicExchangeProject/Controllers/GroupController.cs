@@ -90,5 +90,24 @@ namespace TheMusicExchangeProject.Controllers
 
             return new ObjectResult(new { status = "success", data = newGroup });
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var messageGroup = await _context.MessageGroups.FindAsync(id);
+            var userGroups = _context.UserGroups.Where(u => u.GroupId == id);
+            var messages = _context.Messages.Where(m => m.GroupId == id);
+
+            _context.MessageGroups.Remove(messageGroup);
+            foreach(UserGroup userGroup in userGroups)
+            {
+                _context.UserGroups.Remove(userGroup);
+            }
+            foreach(Message message in messages)
+            {
+                _context.Messages.Remove(message);
+            }
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

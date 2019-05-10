@@ -38,7 +38,7 @@ namespace TheMusicExchangeProject.Controllers
 
         public static double DistanceTo(this Coords from, Coords to, Units units)
         {
-            // Haversine Formula...  
+            // Applies the Haversine Formula.  
             var dLat1InRad = from.Latitude * (Math.PI / 180.0);
             var dLong1InRad = from.Longitude * (Math.PI / 180.0);
             var dLat2InRad = to.Latitude * (Math.PI / 180.0);
@@ -52,10 +52,10 @@ namespace TheMusicExchangeProject.Controllers
                     Math.Cos(dLat1InRad) * Math.Cos(dLat2InRad) *
                     Math.Pow(Math.Sin(dLongitude / 2.0), 2.0);
 
-            // Intermediate result c (great circle distance in Radians).  
+            // Intermediate result c (great circle / shortest distance in Radians).  
             var c = 2.0 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1.0 - a));
 
-            // Unit of measurement  
+            // Apply unit of measurement and round result to 2 d.p. 
             var radius = 6371;
             if (units == Units.Miles) radius = 3959;
             double resultRounded = Math.Round((radius * c), 2);

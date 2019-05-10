@@ -40,20 +40,31 @@ namespace TheMusicExchangeProject.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()));
+                skills = skills
+                    .Where(s => s.SkillName
+                        .Contains(searchString.ToUpper()));
                 if (!String.IsNullOrEmpty(selectedLevel))
                 {
                     if (selectedLevel.Equals("1"))
                     {
-                        skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()) && s.Level.Name.Contains("Beginner"));
+                        skills = skills
+                            .Where(s => s.SkillName
+                                .Contains(searchString.ToUpper()) && 
+                                    s.Level.Name.Contains("Beginner"));
                     }
                     if (selectedLevel.Equals("2"))
                     {
-                        skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()) && s.Level.Name.Contains("Intermediate"));
+                        skills = skills
+                            .Where(s => s.SkillName
+                                .Contains(searchString.ToUpper()) && 
+                                    s.Level.Name.Contains("Intermediate"));
                     }
                     if (selectedLevel.Equals("3"))
                     {
-                        skills = skills.Where(s => s.SkillName.Contains(searchString.ToUpper()) && s.Level.Name.Contains("Advanced"));
+                        skills = skills
+                            .Where(s => s.SkillName
+                                .Contains(searchString.ToUpper()) && 
+                                    s.Level.Name.Contains("Advanced"));
                     }
                 }
             }
@@ -72,6 +83,7 @@ namespace TheMusicExchangeProject.Controllers
                     skills = skills.Where(s => s.Level.Name.Contains("Advanced"));
                 }
             }
+
             ViewBag.levels = new SelectList(new[]
             {
                 new{ id = "", level = "All"},
@@ -91,7 +103,8 @@ namespace TheMusicExchangeProject.Controllers
             var blocks = _context.Blocks;
 
             var viewModel = from o in _context.Users join o2 in skills on o.Id equals o2.UserID
-                            where o.Id.Equals(o2.UserID) select new UserSkillsViewModel {
+                            where o.Id.Equals(o2.UserID)
+                            select new UserSkillsViewModel {
                                 Users = o, Skills = o2, SkillLevel = o2.Level.Name, Age = CalculateAge(o.DOB),
                                 Distance = CalculateDistance.BetweenTwoPostCodes(
                                     currentUser.Latitude, currentUser.Longitude, 
@@ -142,6 +155,12 @@ namespace TheMusicExchangeProject.Controllers
             }
             return age;
         }
+        /**
+         * 
+         * Method creating a connection between two users.
+         * Either creates a new connection entity or confirms an existing one.
+         *
+         */
         public async Task<IActionResult> Connect(string id)
         {
             if (id == null)
@@ -155,14 +174,19 @@ namespace TheMusicExchangeProject.Controllers
 
             var connections = _context.Connections;
             
-            var conExist = await connections.Where(u => u.RequestFrom.Equals(targetUser) && u.RequestTo.Equals(currentUser)).FirstOrDefaultAsync();
-            if(conExist != null)
+            var conExist = await connections
+                .Where(u => u.RequestFrom.Equals(targetUser) && u.RequestTo.Equals(currentUser))
+                .FirstOrDefaultAsync();
+
+            if (conExist != null)
             {
                 conExist.IsConfirmed = true;
             }
             else
             {
-                var c = await connections.Where(u => u.RequestFrom.Equals(currentUser) && u.RequestTo.Equals(targetUser)).FirstOrDefaultAsync();
+                var c = await connections
+                    .Where(u => u.RequestFrom.Equals(currentUser) && u.RequestTo.Equals(targetUser))
+                    .FirstOrDefaultAsync();
                 if (c == null)
                 {
                     Connection newConnection = new Connection
@@ -178,18 +202,25 @@ namespace TheMusicExchangeProject.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-
+        /**
+         * 
+         * Method creating a block between two users.
+         * Creates a new block entity and removes any existing connection. 
+         *
+         */
         public async Task<IActionResult> Block(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
+            // Gets the current and target user from the database.
             var username = User.Identity.Name;
             TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
             TheMusicExchangeProjectUser targetUser = await _context.Users
                 .SingleOrDefaultAsync(m => m.Id == id);
-
+            
+            // Creates a new Block entity and adds to Blocks table.
             var blocks = _context.Blocks;
             Block newBlock = new Block
             {
@@ -199,22 +230,29 @@ namespace TheMusicExchangeProject.Controllers
             blocks.Add(newBlock);
 
             var connections = _context.Connections;
-
-            var conExistTo = await connections.Where(u => u.RequestFrom.Equals(currentUser) && u.RequestTo.Equals(targetUser)).FirstOrDefaultAsync();
-            if(conExistTo != null)
+            // Checks for any existing connections to the user.
+            var conExistTo = await connections
+                .Where(u => u.RequestFrom.Equals(currentUser) && u.RequestTo.Equals(targetUser))
+                .FirstOrDefaultAsync();
+            // Removes connection from the database.
+            if (conExistTo != null)
             {
                 var con = await _context.Connections.FindAsync(conExistTo.ID);
                 _context.Connections.Remove(con);
                 await _context.SaveChangesAsync();
             }
-            var conExistFrom = await connections.Where(u => u.RequestFrom.Equals(targetUser) && u.RequestTo.Equals(currentUser)).FirstOrDefaultAsync();
+            // Checks for any existing connections from the user.
+            var conExistFrom = await connections
+                .Where(u => u.RequestFrom.Equals(targetUser) && u.RequestTo.Equals(currentUser))
+                .FirstOrDefaultAsync();
+            // Removes connection from the database.
             if (conExistFrom != null)
             {
                 var con = await _context.Connections.FindAsync(conExistFrom.ID);
                 _context.Connections.Remove(con);
                 await _context.SaveChangesAsync();
             }
-
+            // Saves all changes to the database and updates page.
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
@@ -229,14 +267,18 @@ namespace TheMusicExchangeProject.Controllers
             var username = User.Identity.Name;
             TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
 
-            var conExistTo = await connections.Where(u => u.RequestFrom.Id.Equals(currentUser.Id) && u.RequestTo.Id.Equals(id)).FirstOrDefaultAsync();
+            var conExistTo = await connections
+                .Where(u => u.RequestFrom.Id.Equals(currentUser.Id) && u.RequestTo.Id.Equals(id))
+                .FirstOrDefaultAsync();
             if (conExistTo != null)
             {
                 var con = await _context.Connections.FindAsync(conExistTo.ID);
                 _context.Connections.Remove(con);
                 await _context.SaveChangesAsync();
             }
-            var conExistFrom = await connections.Where(u => u.RequestFrom.Id.Equals(id) && u.RequestTo.Id.Equals(currentUser.Id)).FirstOrDefaultAsync();
+            var conExistFrom = await connections
+                .Where(u => u.RequestFrom.Id.Equals(id) && u.RequestTo.Id.Equals(currentUser.Id))
+                .FirstOrDefaultAsync();
             if (conExistFrom != null)
             {
                 var con = await _context.Connections.FindAsync(conExistFrom.ID);
@@ -274,7 +316,12 @@ namespace TheMusicExchangeProject.Controllers
             }
             return new FileContentResult(currentUser.ProfilePicture, "image/jpeg");
         }
-
+        /**
+         * 
+         * Method for converting the ProfilePicture byte array to an image.
+         * Takes the UserID as a parameter and returns an image file.
+         *
+         */
         public FileContentResult GenerateProfilePictures(string id)
         {
             var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();

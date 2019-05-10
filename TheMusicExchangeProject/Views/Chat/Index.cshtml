@@ -27,6 +27,9 @@
                         @foreach (var group in (dynamic)ViewData["UserGroups"])
                         {
                             <div class="group" data-group_id="@group.GroupId"> @group.GroupName </div>
+                            <form asp-area="" asp-controller="Group" asp-action="Delete" asp-route-id="@group.GroupId" data-ajax="true">
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
                         }
                     </div>
                     <div class="text-center">
@@ -83,7 +86,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="CreateNewGroupButton">Create Group</button>
+                    <button type="button" class="btn btn-primary" id="CreateNewGroupButton">Create Chat</button>
                 </div>
             </div>
         </div>
