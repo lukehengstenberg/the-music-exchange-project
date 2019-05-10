@@ -26,10 +26,12 @@
                         <input type="hidden" value="" id="currentGroup">
                         @foreach (var group in (dynamic)ViewData["UserGroups"])
                         {
-                            <div class="group" data-group_id="@group.GroupId"> @group.GroupName </div>
-                            <form asp-area="" asp-controller="Group" asp-action="Delete" asp-route-id="@group.GroupId" data-ajax="true">
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </form>
+                            <div class="group" data-group_id="@group.GroupId">
+                            @group.GroupName
+                                <form asp-controller="Chat" asp-action="Delete" asp-route-id="@group.GroupId" data-ajax="true" data-ajax-success="deleteGroup(this)">
+                                    <button type="submit" class="btn btn-secondary">Delete</button>
+                                </form>
+                            </div>
                         }
                     </div>
                     <div class="text-center">
@@ -47,7 +49,7 @@
                             <textarea class="form-control" rows="1" id="Message"></textarea>
                         </div>
                         <div class="col-md-3 col-sm-3 less_padding">
-                            <button type="submit" class="btn btn-primary" style=" position: absolute;" id="SendMessage">Send Message</button>
+                            <button type="submit" class="btn btn-secondary" style=" position: absolute;" id="SendMessage">Send Message</button>
                         </div>
                     </div>
                 </div>

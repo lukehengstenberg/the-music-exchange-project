@@ -13,6 +13,9 @@ var channel = pusher.subscribe('group_chat');
 channel.bind('new_group', function (data) {
     reloadGroup();
 });
+channel.bind('delete_group', function (data) {
+    reloadGroup();
+});
 
 $('input.chk_class').on('change', function () {
     $('input.chk_class').not(this).prop('checked', false);
@@ -42,7 +45,9 @@ $("#CreateNewGroupButton").click(function () {
 
 });
 
-
+function deleteGroup(form) {
+    $(form).parents('div').remove();
+}
 
 // When a user clicks on a group, Load messages for that particular group.
     $("#groups").on("click", ".group", function(){
@@ -110,6 +115,10 @@ function reloadGroup() {
         data.forEach(function (group) {
             groups += `<div class="group" data-group_id="`
                 + group.groupId + `">` + group.groupName +
+                `<form asp-controller="Chat" asp-action="Delete" asp-route-id="` + group.groupId + `" 
+                    data-ajax="true" data-ajax-success="deleteGroup(this)">
+                    <button type="submit" class="btn btn-secondary">Delete</button>
+                </form>` +
                 `</div>`;
         });
 
