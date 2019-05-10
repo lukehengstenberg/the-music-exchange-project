@@ -38,6 +38,8 @@ $("#CreateNewGroupButton").click(function () {
         data: JSON.stringify(data),
         success: (data) => {
             $('#CreateNewGroup').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
         },
         dataType: 'json',
         contentType: 'application/json'

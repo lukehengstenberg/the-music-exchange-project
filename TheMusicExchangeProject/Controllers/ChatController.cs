@@ -81,7 +81,6 @@ namespace TheMusicExchangeProject.Controllers
                 "delete_group", // event name
                 new { id });
 
-            //return new ObjectResult(new { status = "success", data = id });
             return NoContent();
         }
     }

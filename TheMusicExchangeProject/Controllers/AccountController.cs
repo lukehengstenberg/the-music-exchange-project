@@ -12,6 +12,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting;
+using PusherServer;
 
 namespace TheMusicExchangeProject.Controllers
 {
@@ -239,7 +240,6 @@ namespace TheMusicExchangeProject.Controllers
             {
                 var con = await _context.Connections.FindAsync(conExistTo.ID);
                 _context.Connections.Remove(con);
-                await _context.SaveChangesAsync();
             }
             // Checks for any existing connections from the user.
             var conExistFrom = await connections
@@ -250,10 +250,11 @@ namespace TheMusicExchangeProject.Controllers
             {
                 var con = await _context.Connections.FindAsync(conExistFrom.ID);
                 _context.Connections.Remove(con);
-                await _context.SaveChangesAsync();
             }
+            
+
             // Saves all changes to the database and updates page.
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -266,6 +267,8 @@ namespace TheMusicExchangeProject.Controllers
             var connections = _context.Connections;
             var username = User.Identity.Name;
             TheMusicExchangeProjectUser currentUser = await _userManager.FindByNameAsync(username);
+            TheMusicExchangeProjectUser targetUser = await _context.Users
+                .SingleOrDefaultAsync(m => m.Id == id);
 
             var conExistTo = await connections
                 .Where(u => u.RequestFrom.Id.Equals(currentUser.Id) && u.RequestTo.Id.Equals(id))
@@ -274,7 +277,6 @@ namespace TheMusicExchangeProject.Controllers
             {
                 var con = await _context.Connections.FindAsync(conExistTo.ID);
                 _context.Connections.Remove(con);
-                await _context.SaveChangesAsync();
             }
             var conExistFrom = await connections
                 .Where(u => u.RequestFrom.Id.Equals(id) && u.RequestTo.Id.Equals(currentUser.Id))
@@ -283,8 +285,49 @@ namespace TheMusicExchangeProject.Controllers
             {
                 var con = await _context.Connections.FindAsync(conExistFrom.ID);
                 _context.Connections.Remove(con);
-                await _context.SaveChangesAsync();
             }
+            //var currentUserGroups = _context.UserGroups
+            //    .Where(u => u.UserName == currentUser.UserName);
+            //var targetUserGroups = _context.UserGroups
+            //    .Where(u => u.UserName == targetUser.UserName);
+            //var messageGroups = from o in currentUserGroups
+            //                 join o2 in targetUserGroups on o.GroupId equals o2.GroupId
+            //                 select new MessageGroup {ID = o.GroupId};
+            
+            //if (messageGroups != null)
+            //{
+            //    foreach (MessageGroup messageGroup in messageGroups)
+            //    {
+            //        var userGroups = _context.UserGroups.Where(u => u.GroupId == messageGroup.ID);
+            //        var messages = _context.Messages.Where(m => m.GroupId == messageGroup.ID);
+
+            //        _context.MessageGroups.Remove(messageGroup);
+            //        foreach (UserGroup userGroup in userGroups)
+            //        {
+            //            _context.UserGroups.Remove(userGroup);
+            //        }
+            //        foreach (Message message in messages)
+            //        {
+            //            _context.Messages.Remove(message);
+            //        }
+            //        var options = new PusherOptions
+            //        {
+            //            Cluster = "eu",
+            //            Encrypted = true
+            //        };
+            //        var pusher = new Pusher(
+            //            "732466",
+            //            "a334995a12f8ba424958",
+            //            "c010b1f4ce0773c42e8f",
+            //            options
+            //        );
+            //        var result = await pusher.TriggerAsync(
+            //            "group_chat", //channel name
+            //            "delete_group", // event name
+            //            new { id });
+            //    }
+            //}
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
