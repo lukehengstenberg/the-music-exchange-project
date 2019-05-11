@@ -4,9 +4,12 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<header class="search-header">
+    <h3 class="search-title">Customise your Search Preferences!</h3>
+</header>
 
 <form asp-action="Index" method="get">
-    <div class="form-actions no-color">
+    <div class="form-actions no-color hidden" id="search">
         <div class="container-fluid searching">
             <div class="row" style="display:inline-flex;">
                 <div class="col-sm-6" style="margin-top:0.5em;">
@@ -39,6 +42,12 @@
         </div>
     </div>
 </form>
+<div class="search-button">
+    <a class="arrow-btn" id="arrow" onclick="showhideSearch()">
+        <span class="left-bar"></span>
+        <span class="right-bar"></span>
+    </a>
+</div>
 <div class="leftcolumn" id="leftcolumn">
 <div class="centered">
     <section class="cards">

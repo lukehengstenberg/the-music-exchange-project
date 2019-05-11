@@ -46,6 +46,7 @@ a.navbar-brand {
 }
 
 .navbar-inverse {
+    /*background-image: linear-gradient(to bottom, #485277, #3c466a, #303b5e, #233052, #172646, #172646, #172646, #172646, #233052, #303b5e, #3c466a, #485277);*/
     background-color: #485277;
     border-color: #eeeeee;
 }
@@ -475,13 +476,32 @@ p {
     padding: 0 1em;
 }
 
-/*.card-pic {
-    height: auto;
-    width: auto;
-    max-width: 80%;
-    max-height: 80%;
+.search-header {
+    background-image: linear-gradient(to bottom, #485277, #3c466a, #303b5e, #233052, #172646, #172646, #172646, #172646, #233052, #303b5e, #3c466a, #485277);
+    padding-bottom: 0.75em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-}*/
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0.25em;
+}
+
+.search-title {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 100;
+    font-family: 'Lobster', cursive;
+    color: #F18805;
+    line-height: 1em;
+    margin: 0 0 0.5em 0;
+    padding-top: 0.5em;
+}
+
 .card-pic {
     background-size: cover;
     border-radius: 50% 50% 50% 50%;
@@ -631,6 +651,78 @@ p {
         background: rgb(229, 17, 17);
     }
 
+.arrow-btn {
+    background: #c0d9e1;
+    height: 1.5em;
+    width: 1.5em;
+    display: block;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    position: relative;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.left-bar {
+    position: absolute;
+    background-color: transparent;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 5px;
+    display: block;
+    transform: rotate(35deg);
+    float: right;
+    border-radius: 2px;
+}
+
+    .left-bar:after {
+        content: "";
+        background-color: #F18805;
+        width: 20px;
+        height: 5px;
+        display: block;
+        float: right;
+        border-radius: 6px 10px 10px 6px;
+        transition: all 0.5s cubic-bezier(0.25, 1.7, 0.35, 0.8);
+        z-index: -1;
+    }
+
+.right-bar {
+    position: absolute;
+    background-color: transparent;
+    top: 0px;
+    left: 13px;
+    width: 20px;
+    height: 5px;
+    display: block;
+    transform: rotate(-35deg);
+    float: right;
+    border-radius: 2px;
+}
+
+    .right-bar:after {
+        content: "";
+        background-color: #F18805;
+        width: 20px;
+        height: 5px;
+        display: block;
+        float: right;
+        border-radius: 10px 6px 6px 10px;
+        transition: all 0.5s cubic-bezier(0.25, 1.7, 0.35, 0.8);
+        z-index: -1;
+    }
+
+.open .left-bar:after {
+    transform-origin: center center;
+    transform: rotate(-70deg);
+}
+
+.open .right-bar:after {
+    transform-origin: center center;
+    transform: rotate(70deg);
+}
+ 
 .e-control-wrapper.e-slider-container .e-slider .e-handle {
     background-color: #D95D39;
     border-color: #D95D39;

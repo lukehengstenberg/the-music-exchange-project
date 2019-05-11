@@ -141,3 +141,9 @@ function showhideBlocks() {
     var div = document.getElementById("blocks");
     div.classList.toggle('hidden');
 }
+function showhideSearch() {
+    var div = document.getElementById("search");
+    var btn = document.getElementById("arrow")
+    div.classList.toggle('hidden');
+    btn.classList.toggle('open');
+}
