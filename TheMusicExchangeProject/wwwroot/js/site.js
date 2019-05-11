@@ -131,15 +131,21 @@ function reloadGroup() {
 
 function showhideRequests() {
     var div = document.getElementById("requests");
+    var btn = document.getElementById("reqArrow")
     div.classList.toggle('hidden');
+    btn.classList.toggle('open');
 }
 function showhideConnections() {
     var div = document.getElementById("connections");
+    var btn = document.getElementById("conArrow");
     div.classList.toggle('hidden');
+    btn.classList.toggle('open');
 }
 function showhideBlocks() {
     var div = document.getElementById("blocks");
+    var btn = document.getElementById("blkArrow");
     div.classList.toggle('hidden');
+    btn.classList.toggle('open');
 }
 function showhideSearch() {
     var div = document.getElementById("search");

@@ -66,6 +66,7 @@
                     @Html.DisplayFor(modelItem => item.Skills.SkillName)
                     @Html.DisplayFor(modelItem => item.SkillLevel)
                 </h3>
+                <hr />
                 <p>
                     @Html.DisplayFor(modelItem => item.Age) Years old <br />   
                     @Html.DisplayFor(modelItem => item.Distance) Miles away
@@ -73,10 +74,11 @@
                 <p>
                     @Html.DisplayFor(modelItem => item.Users.Bio)
                 </p>
-                <p>
-                    <a asp-action="Connect" asp-route-id="@item.Users.Id" class="connect-btn">Connect</a>
-                    <a asp-action="Block" asp-route-id="@item.Users.Id" class="block-btn">Block</a>
-                </p>
+                <hr />
+                <footer>
+                    <a asp-action="Connect" asp-route-id="@item.Users.Id" class="connect-btn">CONNECT</a>
+                    <a asp-action="Block" asp-route-id="@item.Users.Id" class="block-btn">BLOCK</a>
+                </footer>
             </div>
         </article>
     }
@@ -85,49 +87,88 @@
 </div>
 <div class="rightcolumn">
     <div class="list-card">
-        <h3>Requests:</h3>
-        <div id="requests" class="hidden">
-        <ul>
-            @foreach (var connection in ViewBag.reqData)
-            {
-                <li>
-                    @connection.Users.Name - @connection.Users.Email
-                    <a asp-action="Connect" asp-route-id="@connection.Users.Id" class="connect-btn">Accept</a>
-                    <a asp-action="Disconnect" asp-route-id="@connection.Users.Id" class="block-btn">Decline</a>
-                </li>
-            }
-        </ul>
+        <header class="list-header">
+            <h3 class="list-title">Requests</h3>
+        </header>
+        <div id="requests" class="list-content hidden">
+            <ul>
+                @foreach (var connection in ViewBag.reqData)
+                {
+                    <li>
+                        <h3 class="list-name">@connection.Users.Name</h3>
+                    </li>
+                    <li>
+                        <img src="@Url.Action("GenerateProfilePictures", "Account", new {id = connection.Users.Id})" class="list-pic" />
+                    </li>
+                    <li>
+                        <h3 class="list-email">@connection.Users.Email</h3>
+                    </li>
+                    <li class="bottom-item">
+                        <a asp-action="Connect" asp-route-id="@connection.Users.Id" class="connect-btn">ACCEPT</a>
+                        <a asp-action="Disconnect" asp-route-id="@connection.Users.Id" class="block-btn">DECLINE</a>
+                    </li>
+                }
+            </ul>
         </div>
-        <button id="show-hide-btn" onclick="showhideRequests()">. . .</button>
+        <div class="search-button">
+            <a class="arrow-btn" id="reqArrow" onclick="showhideRequests()">
+                <span class="left-bar"></span>
+                <span class="right-bar"></span>
+            </a>
+        </div>
     </div>
     <div class="list-card">
-        <h3>Your Connections:</h3>
-        <div id="connections" class="hidden">
-        <ul>
-            @foreach (var connection in ViewBag.conData)
-            {
-                <li>
-                    <a asp-area="" asp-controller="Chat" asp-action="Index">@connection.Users.Name - @connection.Users.Email</a>
-                    <a asp-action="Disconnect" asp-route-id="@connection.Users.Id" class="block-btn">Disconnect</a>
-                </li>
-            }
-        </ul>
+        <header class="list-header">
+            <h3 class="list-title">Connections</h3>
+        </header>
+        <div id="connections" class="list-content hidden">
+            <ul>
+                @foreach (var connection in ViewBag.conData)
+                 {
+                    <li>
+                        <h3 class="list-name">@connection.Users.Name</h3>
+                    </li>
+                    <li>
+                        <img src="@Url.Action("GenerateProfilePictures", "Account", new {id = connection.Users.Id})" class="list-pic" />
+                    </li>
+                    <li>
+                        <h3 class="list-email">@connection.Users.Email</h3>
+                    </li>
+                    <li class="bottom-item">
+                        <a asp-action="Disconnect" asp-route-id="@connection.Users.Id" class="disc-btn">DISCONNECT</a>
+                    </li>
+                 }
+            </ul>
         </div>
-        <button id="show-hide-btn" onclick="showhideConnections()">. . .</button>
+        <div class="search-button">
+            <a class="arrow-btn" id="conArrow" onclick="showhideConnections()">
+                <span class="left-bar"></span>
+                <span class="right-bar"></span>
+            </a>
+        </div>
     </div>
     <div class="list-card">
-        <h3>Your Blocks:</h3>
-        <div id="blocks" class="hidden">
-        <ul>
-            @foreach (var block in ViewBag.blkData)
-            {
-                <li>
-                    @block.Users.Name
-                    <a asp-action="Unblock" asp-route-id="@block.Users.Id" class="block-btn">Unblock</a>
-                </li>
-            }
-        </ul>
+        <header class="list-header">
+            <h3 class="list-title">Blocks</h3>
+        </header>
+        <div id="blocks" class="list-content hidden">
+            <ul>
+                @foreach (var block in ViewBag.blkData)
+                {
+                    <li>
+                        <h3 class="list-name">@block.Users.Name</h3>
+                    </li>
+                    <li class="bottom-item">
+                        <a asp-action="Unblock" asp-route-id="@block.Users.Id" class="disc-btn">UNBLOCK</a>
+                    </li>
+                }
+            </ul>
         </div>
-        <button id="show-hide-btn" onclick="showhideBlocks()">. . .</button>
+        <div class="search-button">
+            <a class="arrow-btn" id="blkArrow" onclick="showhideBlocks()">
+                <span class="left-bar"></span>
+                <span class="right-bar"></span>
+            </a>
+        </div>
     </div>
 </div>
