@@ -39,6 +39,7 @@ a.navbar-brand {
     color: #F18805;
     font-family: 'Fira Sans', sans-serif;
     font-size: 1rem;
+    padding-top: 1em;
 }
 
 .navbar-toggler {
@@ -124,7 +125,7 @@ body {
 }
 .login-labels {
     font-family: 'Fira Sans', sans-serif;
-    color: #F18805;
+    color: #485277;
     font-size: 1.25em;
 }
 /* remember to add a boxfade to this*/
@@ -514,6 +515,11 @@ p {
 @media screen and (min-width: 52em) {
     .centered {
         max-width: 52em;
+    }
+}
+@media screen and (max-width: 1000px){
+    .login-inner{
+        width: 100%;
     }
 }
 .card {
@@ -1033,11 +1039,14 @@ p {
 .group {
     padding: 13px;
     border-radius: 12px;
-    background: rgb(57, 125, 192);
+    background: #7BC7E0;
     margin: 5px 0px;
     font-weight: bolder;
     color: black;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .chat_body {
@@ -1053,16 +1062,16 @@ p {
     padding: 13px;
     border-radius: 12px;
     width: 50%;
-    background: #85C1E9;
+    background: #C0D9E1; 
     margin: 6px 4px;
 }
 
 .chat_main {
-    background-color: #957bbe;
+    background-color: #485277;
     height: 520px;
     padding: 0px;
 }
 
 .group_main {
-    background-color: #85C1E9;
+    background-color: #C0D9E1;
 }

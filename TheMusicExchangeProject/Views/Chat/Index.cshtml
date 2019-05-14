@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <h3 class="text-center">Welcome</h3>
+    <header class="search-header">
+        <h3 class="search-title">Chat with your connections</h3>
+    </header>
     <div class="container" style="background-color: grey;">
         <div class="row">
             <div class="col-md-2 less_padding">
@@ -28,7 +30,7 @@
                             @group.GroupName
                             <img src="@Url.Action("ChatProfilePictures", "Chat", new {groupId = group.GroupId})" class="profile-pic" />
                             <form asp-controller="Chat" asp-action="Delete" asp-route-id="@group.GroupId" data-ajax="true" data-ajax-success="deleteGroup(this)">
-                                <button type="submit" class="btn btn-secondary">Delete</button>
+                                <button type="submit" class="btn btn-secondary" style="margin-top:0.5em;">Delete</button>
                             </form>
                         </div>
                         }
@@ -68,17 +70,21 @@
                 <div class="modal-body">
                     <form id="CreateGroupForm">
                         <div class="form-group">
-                            <label for="GroupName">Group Name</label>
-                            <input type="text" class="form-control" name="GroupName" id="GroupName" aria-describedby="emailHelp" placeholder="Group Name">
+                            <label for="GroupName">Chat Name</label>
+                            <input type="text" class="form-control" name="GroupName" id="GroupName" aria-describedby="emailHelp" placeholder="Chat Name">
                         </div>
-                        <label for="User">Add Users <br></label> <br>
+                        <label for="User">Your Connections <br></label> <br>
                         <div class="row">
                             @foreach(var user in (dynamic)ViewData["Users"])
                             {
                                 <div class="col-4">
-                                    <div class="form-check">
+                                    <div class="form-check" >
+                                        <label class="form-check-label" for="Users">
+                                            @user.UserName
+                                            <img src="@Url.Action("GenerateProfilePictures", "Account", new {id = user.Id})" class="profile-pic" />
+                                        </label>
                                         <input type="checkbox" value="@user.UserName" name="UserName[]" class="chk_class">
-                                        <label class="form-check-label" for="Users">@user.UserName</label>
+                                        
                                     </div>
                                 </div>
                             }

@@ -68,8 +68,8 @@ function deleteGroup(form) {
             data.forEach(function(data){
                 var event = new Date(data.timeSent);
                 let position = (data.addedBy == $("#UserName").val()) ? " float-right" : "";
-                message += `<div class="row chat_message` + position + `">
-                                <b>` + event.toLocaleTimeString('en-US') + data.addedBy + `: </b>` + data.message + ` 
+                message += `<div class="row chat_message` + position + `">` + event.toLocaleTimeString('en-US') + "-" +
+                                `<b>` + data.addedBy + `: </b>` + data.message + ` 
                             </div>`;
             });
 
@@ -80,8 +80,8 @@ function deleteGroup(form) {
 
             group_channel.bind('new_message', function(data) { 
                  if( currentGroupId == data.new_message.GroupId){
-
-                      $(".chat_body").append(`<div class="row chat_message"><b>`+ data.new_message.AddedBy +`: </b>`+ data.new_message.message +` </div>`);
+                     
+                     $(".chat_body").append(`<div class="row chat_message">` + "-" +`<b>`+ data.new_message.AddedBy +`: </b>`+ data.new_message.message +` </div>`);
                  }
               });  
         }
@@ -99,8 +99,8 @@ $("#SendMessage").click(function () {
         }),
         success: (data) => {
             var event = new Date(data.data.timeSent);
-            $(".chat_body").append(`<div class="row chat_message float-right"><b>`
-                + event.toLocaleTimeString('en-US') + data.data.addedBy + `: </b>` + $("#Message").val() + `</div>`
+            $(".chat_body").append(`<div class="row chat_message float-right">` + event.toLocaleTimeString('en-US') + "-" +`<b>`
+                + data.data.addedBy + `: </b>` + $("#Message").val() + `</div>`
             );
 
             $("#Message").val('');

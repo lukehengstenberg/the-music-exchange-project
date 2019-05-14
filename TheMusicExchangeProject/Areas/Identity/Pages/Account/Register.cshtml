@@ -12,9 +12,13 @@
             <hr />
             <div class="login-content">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.ProfilePicture"></label>
-                    <input type="file" asp-for="Input.ProfilePicture" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif"/>
+                <div class="form-group row">
+                    <div class="col-sm-6 centered login-labels">
+                        <label asp-for="Input.ProfilePicture"></label>
+                    </div>
+                    <div class="col-sm-6 centered" style="background:none;">
+                        <input type="file" asp-for="Input.ProfilePicture" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6 centered login-labels">
@@ -65,7 +69,8 @@
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Register</button>
+                <hr />
+                <button type="submit" class="create-btn" style="margin-bottom:0.5em;">REGISTER</button>
             </div>
         </form>
     </div>
